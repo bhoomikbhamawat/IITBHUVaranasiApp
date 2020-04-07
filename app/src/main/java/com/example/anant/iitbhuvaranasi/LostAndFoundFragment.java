@@ -24,7 +24,7 @@ import java.util.Objects;
 public class LostAndFoundFragment extends Fragment {
 
     private Toolbar toolbar;
-    public static ImageButton sendButton;
+    public static ImageButton sendButton,addImage;
 
 
     @Nullable
@@ -34,15 +34,23 @@ public class LostAndFoundFragment extends Fragment {
         toolbar = (Toolbar) Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
 
 
-        //Creating send button
+        //Creating send button & addImage Button
         int endMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics());
-        Toolbar.LayoutParams sendLayoutParam = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        sendLayoutParam.gravity = Gravity.END;
-        sendLayoutParam.setMarginEnd(endMargin);
-        sendButton = new ImageButton(getContext());
-        sendButton.setLayoutParams(sendLayoutParam);
-        sendButton.setBackground(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, typedValue, true);
+        Toolbar.LayoutParams LayoutParam = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParam.gravity = Gravity.END;
+        LayoutParam.setMarginEnd(endMargin);
 
+        sendButton = new ImageButton(getContext());
+        sendButton.setLayoutParams(LayoutParam);
+        sendButton.setImageDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
+        sendButton.setBackgroundResource(typedValue.resourceId);
+
+        addImage = new ImageButton(getContext());
+        addImage.setLayoutParams(LayoutParam);
+        addImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_attachment_black_24dp));
+        addImage.setBackgroundResource(typedValue.resourceId);
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.lost_found_viewpager);
         final LostFoundPageAdapter pageAdapter = new LostFoundPageAdapter(getChildFragmentManager());
@@ -93,6 +101,8 @@ public class LostAndFoundFragment extends Fragment {
 
         toolbar.setTitle("Lost/Found");
         toolbar.addView(sendButton);
+        toolbar.addView(addImage);
+
 
 
     }
@@ -103,6 +113,7 @@ public class LostAndFoundFragment extends Fragment {
 
         toolbar.setTitle(R.string.app_name);
         toolbar.removeView(sendButton);
+        toolbar.removeView(addImage);
 
     }
 }
