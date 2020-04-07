@@ -153,6 +153,7 @@ public class FoundFragment extends Fragment {
         contactLayout.setHint("Your Contact Number");
         lostItemTILayout.setHint("Found Item");
         locationlayout.setHint("Found at (Location)");
+
         details.setHint(null);
         details.setEnabled(false);
 
@@ -175,6 +176,7 @@ public class FoundFragment extends Fragment {
 
         List<String> Branch = new ArrayList<>();
         Branch.add(0, "Owner's Branch");
+
         Branch.add("Architecture, Planning and Design");
         Branch.add("Biochemical Engineering");
         Branch.add("Biomedical Engineering");

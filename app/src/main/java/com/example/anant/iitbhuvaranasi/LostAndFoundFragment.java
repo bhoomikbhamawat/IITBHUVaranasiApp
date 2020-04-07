@@ -24,7 +24,9 @@ import java.util.Objects;
 public class LostAndFoundFragment extends Fragment {
 
     private Toolbar toolbar;
+
     public static ImageButton sendButton,addImage;
+
 
 
     @Nullable
@@ -43,6 +45,7 @@ public class LostAndFoundFragment extends Fragment {
         LayoutParam.setMarginEnd(endMargin);
 
         sendButton = new ImageButton(getContext());
+
         sendButton.setLayoutParams(LayoutParam);
         sendButton.setImageDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.ic_send_black_24dp));
         sendButton.setBackgroundResource(typedValue.resourceId);
@@ -51,6 +54,7 @@ public class LostAndFoundFragment extends Fragment {
         addImage.setLayoutParams(LayoutParam);
         addImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_attachment_black_24dp));
         addImage.setBackgroundResource(typedValue.resourceId);
+
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.lost_found_viewpager);
         final LostFoundPageAdapter pageAdapter = new LostFoundPageAdapter(getChildFragmentManager());
@@ -105,6 +109,7 @@ public class LostAndFoundFragment extends Fragment {
 
 
 
+
     }
 
     @Override
@@ -114,6 +119,7 @@ public class LostAndFoundFragment extends Fragment {
         toolbar.setTitle(R.string.app_name);
         toolbar.removeView(sendButton);
         toolbar.removeView(addImage);
+
 
     }
 }
