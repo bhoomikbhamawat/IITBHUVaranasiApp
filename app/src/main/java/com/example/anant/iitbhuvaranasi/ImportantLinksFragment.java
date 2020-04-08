@@ -2,12 +2,14 @@ package com.example.anant.iitbhuvaranasi;
 
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,28 @@ import java.util.Objects;
 
 public class ImportantLinksFragment extends Fragment {
 
-    private Toolbar toolbar;
+
+//    String formattedDate;
+    
+     private Toolbar toolbar;
+
+    @Override
+    public void onStop() {
+        toolbar.setTitle("IIT(BHU) Varanasi");
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        toolbar.setTitle("Important Links");
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        toolbar.setTitle("Important Links");
+        super.onStart();
+    }
 
 
     @Override
@@ -40,6 +63,7 @@ public class ImportantLinksFragment extends Fragment {
         LinearLayout wifi = view.findViewById(R.id.wifi_clickable);
         LinearLayout academic_layout = view.findViewById(R.id.academic_layout);
         wifi.setVisibility(View.GONE);
+
         TextView academic = view.findViewById(R.id.academic_clickable);
         TextView wifi_guide = view.findViewById(R.id.wifi_lan);
         TextView iitbhuLink = view.findViewById(R.id.iitbhu_link);
@@ -48,6 +72,7 @@ public class ImportantLinksFragment extends Fragment {
 
         SpannableString spannableString = new SpannableString("Important links from iitbhu.ac.in");
         ClickableSpan link = new ClickableSpan() {
+
             @Override
             public void onClick(@NonNull View widget) {
                 String url = "https://iitbhu.ac.in/";
@@ -228,24 +253,5 @@ public class ImportantLinksFragment extends Fragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        toolbar.setTitle("Important Links");
-        //        toolbar.setNavigationIcon(null);
-//        ((HomeActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
-//        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        ((HomeActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        toolbar.setTitle(R.string.app_name);
     }
 }
