@@ -120,6 +120,7 @@
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
+
                                         android:layout_height="wrap_content"
                                         android:orientation="horizontal">
 
@@ -207,6 +208,7 @@
                                         android:elevation="1dp"
                                         app:cardCornerRadius="10dp">
 
+
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -232,6 +234,7 @@
                                                 android:textColor="@color/colorGray"
                                                 android:textSize="1sp"
                                                 android:textStyle="bold" />
+
                                         </LinearLayout>
 
 
