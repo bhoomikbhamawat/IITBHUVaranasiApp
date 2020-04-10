@@ -153,6 +153,9 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
         HorizontalViewHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
+            recyclerView.setItemViewCacheSize(20);
+            RecyclerView.RecycledViewPool sharedPool = new RecyclerView.RecycledViewPool();
+            recyclerView.setRecycledViewPool(sharedPool);
         }
     }
 
@@ -162,6 +165,9 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
         VerticalViewHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.inner_recyclerView);
+            recyclerView.setItemViewCacheSize(20);
+            RecyclerView.RecycledViewPool sharedPool = new RecyclerView.RecycledViewPool();
+            recyclerView.setRecycledViewPool(sharedPool);
         }
     }
 
