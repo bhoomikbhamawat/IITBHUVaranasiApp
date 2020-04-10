@@ -83,9 +83,6 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
             }
         });
-
-
-
         swipeRefreshLayout.post(new Runnable() {
 
             @Override
@@ -99,45 +96,8 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
                 loadRecyclerViewData(getVerticalData4);
             }
         });
-
-
-
-
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
-        // getVerticalData3 = new ArrayList<>();
-
-       /* Log.d("567853", getVerticalData4.toString());
-
-        for(int a=0;a<getVerticalData4.size();a++) {
-            Log.d("567853", getVerticalData4.get(a).toString());
-
-            *//*if ( notifid5 <=  Integer.valueOf(getVerticalData1.get(a).getNotifid()))
-            {
-                notifid5 =  Integer.valueOf(getVerticalData1.get(a).getNotifid());
-                Log.d("notifid",notifid5.toString());
-            }*//*
-
-            if (getVerticalData4.get(a).getClub_name().equals(title1)){
-                getVerticalData3.add(getVerticalData4.get(a));
-               // Log.d("567854", getVerticalData3.toString());
-              //  Log.d("567853", getVerticalData1.get(a).getClub_name().toString());
-
-            }
-
-         //   Log.d("5678", getVerticalData1.get(a).getClub_name().toString());
-        }
-
-        RecyclerView = findViewById(R.id.cub_feed_recyclerview);
-        RecyclerView.setHasFixedSize(true);
-
-        RecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        final Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(getVerticalData3,Club_Feed.this);
-        adapter_cLubFeed.notifyDataSetChanged();
-        RecyclerView.setAdapter(adapter_cLubFeed);
-        Log.d("vetricalfer",getVerticalData4.toString());*/
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -246,11 +206,12 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
         RecyclerView = findViewById(R.id.cub_feed_recyclerview);
         RecyclerView.setHasFixedSize(true);
-
+        RecyclerView.setItemViewCacheSize(20);
         RecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         Adapter_CLubFeed adapter_cLubFeed = new Adapter_CLubFeed(getVerticalData3,Club_Feed.this);
         adapter_cLubFeed.notifyDataSetChanged();
+        adapter_cLubFeed.setHasStableIds(true);
         RecyclerView.setAdapter(adapter_cLubFeed);
         Log.d("vetricalfer",getVerticalData4.toString());
     }
@@ -258,13 +219,7 @@ public class Club_Feed extends AppCompatActivity implements SwipeRefreshLayout.O
 
 
 
-    /* public static ArrayList<SingleVerticalData> getVerticaldata() {
-         ArrayList<SingleVerticalData> singleVerticalData = new ArrayList<>();
-         singleHorizontals.add(new SingleHorizontaldata(R.drawable.culturalcouncil, "Cultural Council"));
-       singleHorizontals.add(new SingleHorizontaldata(R.drawable.saic, "Student Alumni Interaction Cell"));
 
-           return singleVerticalData;
-     }*/
     @Override
     public boolean onSupportNavigateUp(){
 

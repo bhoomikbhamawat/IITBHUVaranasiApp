@@ -33,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.cooltechworks.views.WhatsappViewCompat;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -52,7 +53,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
     public static String location2345 = null;
     boolean check;
     String event_title,event_description,event_date,event_venue,event_time;
-    TextView title_event, description_event, date_event, venue_event, time_event, interested_count;
+    TextView title_event, description_event, date_event, venue_event, time_event, interested_count,councilName;
    // Button  interested_button;
     ImageButton share_button, location_button, clock_button;
     SingleVerticalData obj;
@@ -103,6 +104,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         title_event = findViewById(R.id.event_page_title);
         date_event = findViewById(R.id.event_page_date);
         image_event = findViewById(R.id.event_picture_2);
+        councilName = findViewById(R.id.council_name);
         share_button = (ImageButton) findViewById(R.id.share_event_button);
         share_button.setOnClickListener(this);
         venue_event = (TextView) findViewById(R.id.event_venue);
@@ -126,17 +128,25 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
         String notifid = obj.getNotifid();
         Integer notif_id = Integer.valueOf(notifid);
         Log.d("notidsd",notifid);
+        councilName.setText(obj.getCouncil_name());
         title_event.setText(obj.getTitle_event());
         map_location = obj.getMap_location();
+        Log.d("sdfsfdsf1",obj.getDescription_event());
         Log.d("FeedFragmentMapData","Map Location from backend = "+map_location);
-
+       // WhatsappViewCompat.applyFormatting(description_event);
+        Log.d("sdfsfdsf",obj.getDescription_event());
         description_event.setText(obj.getDescription_event());
+       // WhatsappViewCompat.applyFormatting(description_event);
+       // WhatsappViewCompat.applyFormatting(description_event);
         Glide.with(this)
                 .load(obj.getImage_event())
                 .fitCenter() // scale to fit entire image within ImageView
                 .into(image_event);
         date_event.setText(time);
         venue_event.setText(obj.getLocation());
+        Log.d("location-098",venue_event.toString());
+        Log.d("location-0987",obj.getLocation());
+        Log.d("location-09876",obj.getMap_location());
        // view_count.setText(obj.getViewcount());
 //        interested_count.setText(obj.getInterestedcount());
         final JSONObject obj2 = new JSONObject();
@@ -288,6 +298,7 @@ public class  Feedfragment_notifcation_Activity extends AppCompatActivity implem
                 break;
 
             case R.id.event_venue:
+                location2345 = map_location;
                 startActivity(new Intent(this,FragmentSupportActivity.class));
                /* Uri gmmIntentUri = Uri.parse("geo:37.7749,-122.4192?q=" + Uri.encode("1st & Pike, Seattle"));
                 Intent mapIntent= new Intent(Intent.ACTION_VIEW, gmmIntentUri);

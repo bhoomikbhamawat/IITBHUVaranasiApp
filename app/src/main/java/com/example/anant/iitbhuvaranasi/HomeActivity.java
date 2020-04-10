@@ -34,6 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
+import static com.example.anant.iitbhuvaranasi.Feedfragment_notifcation_Activity.location2345;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -43,6 +44,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     int x = 0;
     int track = 0;
+
+
 
 
     public static String emailOfStudent = "";
@@ -64,9 +67,55 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-        email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView emailOfStudent1 = headerView.findViewById(R.id.email_of_student);
+        TextView nameOfStudent = headerView.findViewById(R.id.name_of_student);
 
+        if(SignInActivity.guestLoginChecker != 1){
+            SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+            email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+            Constants.APIint = 1;
+            Log.d("email1234",email);
+            Constants.Email_Key = email;
+            ID_card_Response.method(this);
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            String personName = "", personEmail = "", personGivenName = "", personFamilyName = "";
+            if (acct != null) {
+                personGivenName = acct.getGivenName();
+                personEmail = acct.getEmail();
+                emailOfStudent = personEmail;
+
+
+                //Important : Can be used later if needed
+                //personName = acct.getDisplayName();
+                //Stores branch of the student and year of study
+                //personFamilyName = acct.getFamilyName();
+            }
+            //navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+            SharedPreferences pref3 = getSharedPreferences(Constants.ID_Name, MODE_PRIVATE);
+            name_student = pref3.getString(Constants.Name_Student,personGivenName );
+            Log.d("mnbv",name_student);
+            emailOfStudent1.setText(personEmail);
+            nameOfStudent.setText(name_student);
+            Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
+                    +"\npersonFamilyName="+personFamilyName);
+        }
+        if(SignInActivity.guestLoginChecker == 1){
+            Api_Response.method(this);
+            emailOfStudent1.setText(" ");
+            nameOfStudent.setText("Hello Guest User");
+        }
+
+        /*SharedPreferences sharedPreferences =getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        email = sharedPreferences.getString(Constants.Email, Constants.Email_Key);
+        Constants.APIint = 1;
         Log.d("email1234",email);
         Constants.Email_Key = email;
 
@@ -75,7 +124,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
 
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -91,10 +140,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        /*navigationView = (NavigationView) findViewById(R.id.nav_view);*/
 
-        View headerView = navigationView.getHeaderView(0);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+       // View headerView = navigationView.getHeaderView(0);
+       /* GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         String personName = "", personEmail = "", personGivenName = "", personFamilyName = "";
         if (acct != null) {
             personGivenName = acct.getGivenName();
@@ -116,7 +165,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
          emailOfStudent.setText(personEmail);
          nameOfStudent.setText(name_student);
                 Log.d("EmailCheck","email="+personEmail+"\name="+personName+"\npersonGivenName="+personGivenName
-                +"\npersonFamilyName="+personFamilyName);
+                +"\npersonFamilyName="+personFamilyName);*/
 
         navigationView.setCheckedItem(R.id.nav_notifications);
         navigationView.setNavigationItemSelectedListener(this);
@@ -173,7 +222,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_maps:
-                track = 1;
+//                track = 1;
 //                SharedPreferences.Editor editor1 = getSharedPreferences("com.example.anant.iitbhuvaranasi", MODE_PRIVATE).edit();
 //                editor1.putInt("track",1);
 //                editor1.commit();
@@ -181,9 +230,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 /*getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new IITBHUMapFragment()).commit();
                 bottomNavigationView.setVisibility(View.GONE);*/
-                Intent intent1 = new Intent(HomeActivity.this, IITbhu_Map.class);
+                location2345=null;
+                Intent intent1 = new Intent(HomeActivity.this, FragmentSupportActivity.class);
                 startActivity(intent1);
-                finish();
+                //finish();
                 x++;
                 break;
             case R.id.nav_complain:
@@ -296,14 +346,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                     break;
             case R.id.nav_logout:
-                SignInActivity.guestLoginChecker = 0;
-                mGoogleSignInClient.signOut()
-                        .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                // ...
-                            }
-                        });
+                if(SignInActivity.guestLoginChecker ==1){
+                    SignInActivity.guestLoginChecker = 0;
+                }
+                else {
+                    SignInActivity.guestLoginChecker = 0;
+                    mGoogleSignInClient.signOut()
+                            .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    // ...
+                                }
+                            });
+                }
 
                 SharedPreferences spreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor spreferencesEditor = spreferences.edit();
