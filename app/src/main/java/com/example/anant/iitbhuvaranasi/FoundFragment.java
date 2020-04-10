@@ -168,7 +168,7 @@ public class FoundFragment extends Fragment {
 
         UserImage = new ArrayList<>();
 
-        ownerInformation.setText("Owner's info (if available in founded item)");
+        ownerInformation.setText("Owner's info. (If available in founded item)");
         contactLayout.setHint("Your Contact Number");
         lostItemTILayout.setHint("Found Item");
         locationlayout.setHint("Found at (Location)");
