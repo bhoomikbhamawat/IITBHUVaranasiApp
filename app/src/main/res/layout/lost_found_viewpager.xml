@@ -125,13 +125,6 @@
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:singleLine="true" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height=".5dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@color/grey"/>
 
                     <Spinner
                         android:id="@+id/branch"
