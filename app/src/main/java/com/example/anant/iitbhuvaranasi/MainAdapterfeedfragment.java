@@ -1,5 +1,6 @@
 package com.example.anant.iitbhuvaranasi;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -24,6 +25,10 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
     private final int VERTICAL = 1;
     SharedPreferences sharedPreferences;
     Integer i=0;
+    static HorizontalAdapter_Feedfragment adapterH = new HorizontalAdapter_Feedfragment(new HomeActivity(),new ArrayList<>());
+    ;
+    static VerticalAdapter_Feedfragment adapterV = new VerticalAdapter_Feedfragment(new HomeActivity(), new ArrayList<>());
+
 
 
     public MainAdapterfeedfragment(Context context, ArrayList<Object> items) {
@@ -111,25 +116,25 @@ public class MainAdapterfeedfragment extends RecyclerView.Adapter<RecyclerView.V
         //Toast.makeText(context, "Hello" + holder, Toast.LENGTH_LONG).show();
        // Log.d("holder", "" + holder);
         Log.d("1000","mainadapterhorizontal0");
-        HorizontalAdapter_Feedfragment adapter = new HorizontalAdapter_Feedfragment(context, getHorizontalData1);
         Log.d("1001","mainadapterhorizontal");
      // Log.d("horizontaldataadapter",getHorizontalData().toString());
         //holder.recyclerView.setLayoutManager(new LinearLayoutManager(context3));
+        adapterH =  new HorizontalAdapter_Feedfragment(context, getHorizontalData1);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         //holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
        // holder.recyclerView.setLayoutManager(new GridLayoutManager(context3, 2, GridLayoutManager.HORIZONTAL, false));
-        holder.recyclerView.setAdapter(adapter);
+        holder.recyclerView.setAdapter(adapterH);
         //holder.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, VERTICAL));
 
     }
 
     private void verticalView(VerticalViewHolder holder) {
         Log.d("1002","mainadaptervertical0");
-        VerticalAdapter_Feedfragment adapter = new VerticalAdapter_Feedfragment(context, getVerticalData5);
        //Log.d("verticaladapter",getVerticalData().toString());
         Log.d("1003","mainadaptervertical");
+        adapterV = new VerticalAdapter_Feedfragment(context, getVerticalData5);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(adapter);
+        holder.recyclerView.setAdapter(adapterV);
     }
 
 
